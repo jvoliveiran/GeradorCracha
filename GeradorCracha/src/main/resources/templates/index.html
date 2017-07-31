@@ -8,6 +8,24 @@
 		<!-- Primeira linha -->
 		<div class="row">
 			<div class="col-lg-12">
+			
+				<form action="#" th:action="@{/}" th:object="${crachaForm}" method="post">
+		            <table>
+		                <tr>
+		                    <td>Nome:</td>
+		                    <td><input type="text" th:field="*{nome}" /></td>
+		                    <td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome: </td>
+		                </tr>
+		                <tr>
+		                    <td>Título:</td>
+		                    <td><input type="text" th:field="*{titulo}" /></td>
+		                    <td th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}">Título</td>
+		                </tr>
+		                <tr>
+		                    <td><button type="submit">Gerar crachá</button></td>
+		                </tr>
+		            </table>
+		        </form>
 				
 			</div>
 		</div>
