@@ -25,6 +25,8 @@ public class CrachaForm {
 	
 	private String subTitulo;
 	
+	private boolean equipista;
+	
 	public String getCabecalho() {
 		return cabecalho;
 	}
@@ -54,6 +56,12 @@ public class CrachaForm {
 	}
 	public void setSubTitulo(String subTitulo) {
 		this.subTitulo = subTitulo;
+	}
+	public boolean isEquipista() {
+		return equipista;
+	}
+	public void setEquipista(boolean equipista) {
+		this.equipista = equipista;
 	}
 	
 }
