@@ -12,7 +12,9 @@
 				  
 				  	<ul class="nav nav-tabs">
 						<li class="active"><a data-toggle="tab" href="#impressao_simples">Impressão Simples</a></li>
-						<li><a data-toggle="tab" href="#impressao_lista" >Impressão em Lista</a></li>
+						<li><a data-toggle="tab" href="#cadastrar_pessoas" >Cadastrar Pessoas</a></li>
+						<li><a data-toggle="tab" href="#importar_pessoas" >Importar Pessoas</a></li>
+						<li><a data-toggle="tab" href="#impressao_lista" >Imprimir Lista de Crachás</a></li>
 					</ul>
 				  
 				  	<div class="tab-content">
@@ -34,9 +36,9 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="textinput">Sub Cabeçalho</label>  
 								<div class="col-md-4">
-									<input id="subcabecalhoInput" name="subcabecalhoInput" th:field="*{subCabecalho}" type="text" placeholder="Sub Cabeçalho" class="form-control input-md" />
+									<input id="subcabecalhoInput" name="subcabecalhoInput" th:field="*{subcabecalho}" type="text" placeholder="Sub Cabeçalho" class="form-control input-md" />
 									<div class="col-md-4">
-										<div th:if="${#fields.hasErrors('subCabecalho')}" th:errors="*{subCabecalho}">Sub Cabeçalho: </div>
+										<div th:if="${#fields.hasErrors('subcabecalho')}" th:errors="*{subcabecalho}">Sub Cabeçalho: </div>
 									</div>
 								</div>    
 							</div>
@@ -75,9 +77,9 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="textinput">Sub Título</label>  
 								<div class="col-md-4">
-									<input id="subtituloInput" name="subtituloInput" th:field="*{subTitulo}" type="text" placeholder="Sub Título" class="form-control input-md" />
+									<input id="subtituloInput" name="subtituloInput" th:field="*{subtitulo}" type="text" placeholder="Sub Título" class="form-control input-md" />
 									<div class="col-md-4">
-										<div th:if="${#fields.hasErrors('subTitulo')}" th:errors="*{subTitulo}">Sub Título: </div>
+										<div th:if="${#fields.hasErrors('subtitulo')}" th:errors="*{subtitulo}">Sub Título: </div>
 									</div>
 								</div>    
 							</div>
@@ -95,50 +97,159 @@
 							</form>
 				  		</div>
 				  		
-				  		<!-- Impressão em Lista -->
+				  		<!-- Cadastro Pessoas -->
 				  		
-				  		<div id="impressao_lista" class="tab-pane fade">
+				  		<div id="cadastrar_pessoas" class="tab-pane fade">
 				  			<br />
-				  			<form class="form-horizontal" action="#" th:action="@{/pessoa/cadastrar_pessoa}" th:object="${pessoa}" method="post">
+				  			<div class="row">
+					  			<form class="form-horizontal" action="#" th:action="@{/pessoa/cadastrar_pessoa}" th:object="${pessoa}" method="post">
+								<fieldset>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="textinput">Nome</label>  
+									<div class="col-md-4">
+										<input id="nomeInput" name="nomeInput" th:field="*{nome}" type="text" placeholder="Nome" class="form-control input-md" />
+										<div class="col-md-4">
+											<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome: </div>
+										</div>
+									</div>    
+								</div>
+								
+								<div class="form-group">
+							  		<label class="col-md-4 control-label" for="checkboxes">Equipista?</label>
+							  		<div class="col-md-4">
+							  			<div class="checkbox">
+							    			<label for="checkboxes-0">
+							      				<input type="checkbox" name="checkboxes" id="checkboxes-0" th:field="*{equipista}" th:value="true" />
+							    			</label>
+										</div>
+							  		</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="textinput">Título</label>  
+									<div class="col-md-4">
+										<input id="tituloInput" name="tituloInput" th:field="*{titulo}" type="text" placeholder="Título" class="form-control input-md" />
+										<div class="col-md-4">
+											<div th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}">Título: </div>
+										</div>
+									</div>    
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="textinput">Sub Título</label>  
+									<div class="col-md-4">
+										<input id="subtituloInput" name="subtituloInput" th:field="*{subtitulo}" type="text" placeholder="Sub Título" class="form-control input-md" />
+										<div class="col-md-4">
+											<div th:if="${#fields.hasErrors('subtitulo')}" th:errors="*{subtitulo}">Sub Título: </div>
+										</div>
+									</div>    
+								</div>
+								
+								<!-- Button -->
+								<div class="form-group">
+									<div class="col-md-12">
+										<center>						
+											<button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Cadastrar Pessoa</button>
+										</center>
+									</div>
+								</div>
+								
+								</fieldset>
+								</form>
+							</div>
+							
+							<hr />
+							
+							<!-- Lista de Pessoas Cadastradas -->
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<h3 class="panel-title">Pessoas Cadastradas</h3>
+											<div class="pull-right">
+												<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+													<i class="glyphicon glyphicon-filter"></i>
+												</span>
+											</div>
+										</div>
+										<div class="panel-body">
+											<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filtrar Pessoas" />
+										</div>
+										<table class="table table-hover" id="dev-table">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Nome</th>
+													<th>Equipe/Grupo</th>
+													<th>Coordenação</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="p : ${pessoas}">
+													<td th:text="${p.id}">1</td>
+													<td th:text="${p.nome}">Nome pessoa</td>
+													<td th:text="${p.titulo}">Equipe ou grupo</td>
+													<td th:text="${p.subtitulo}">Coordenador</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- FIM Lista de Pessoas Cadastradas -->
+				  		</div>
+				  		
+				  		<!-- Importar pessoas -->
+				  		
+				  		<div id="importar_pessoas" class="tab-pane fade">
+				  			<br />
+				  			<form class="form-horizontal" action="/GeradorCracha/importar_pessoas" method="post" enctype="multipart/form-data">
 							<fieldset>
 							
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="textinput">Nome</label>  
+								<label class="col-md-4 control-label" for="textinput">Arquivo</label>  
 								<div class="col-md-4">
-									<input id="nomeInput" name="nomeInput" th:field="*{nome}" type="text" placeholder="Nome" class="form-control input-md" />
+									<input type="file" name="file" />
+								</div>    
+							</div>
+							
+							<!-- Button -->
+							<div class="form-group">
+								<div class="col-md-12">
+									<center>						
+										<button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Importar Pessoas</button>
+									</center>
+								</div>
+							</div>
+							
+							</fieldset>
+							</form>
+				  		</div>
+				  		
+				  		<!-- Imprimir lista de crachas -->
+				  		
+				  		<div id="impressao_lista" class="tab-pane fade">
+				  			<br />
+				  			<form class="form-horizontal" action="#" th:action="@{/imprimir_lista_crachas}" th:object="${cabecalhoForm}" method="post">
+							<fieldset>
+							
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="textinput">Cabeçalho</label>  
+								<div class="col-md-4">
+									<input id="cabecalhoInput" name="cabecalhoInput" th:field="*{cabecalho}" type="text" placeholder="Cabeçalho" class="form-control input-md" />
 									<div class="col-md-4">
-										<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Nome: </div>
+										<div th:if="${#fields.hasErrors('cabecalho')}" th:errors="*{cabecalho}">Cabeçalho: </div>
 									</div>
 								</div>    
 							</div>
 							
 							<div class="form-group">
-						  		<label class="col-md-4 control-label" for="checkboxes">Equipista?</label>
-						  		<div class="col-md-4">
-						  			<div class="checkbox">
-						    			<label for="checkboxes-0">
-						      				<input type="checkbox" name="checkboxes" id="checkboxes-0" th:field="*{equipista}" th:value="true" />
-						    			</label>
-									</div>
-						  		</div>
-							</div>
-							
-							<div class="form-group">
-								<label class="col-md-4 control-label" for="textinput">Título</label>  
+								<label class="col-md-4 control-label" for="textinput">Sub Cabeçalho</label>  
 								<div class="col-md-4">
-									<input id="tituloInput" name="tituloInput" th:field="*{titulo}" type="text" placeholder="Título" class="form-control input-md" />
+									<input id="subcabecalhoInput" name="subcabecalhoInput" th:field="*{subcabecalho}" type="text" placeholder="Sub Cabeçalho" class="form-control input-md" />
 									<div class="col-md-4">
-										<div th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}">Título: </div>
-									</div>
-								</div>    
-							</div>
-							
-							<div class="form-group">
-								<label class="col-md-4 control-label" for="textinput">Sub Título</label>  
-								<div class="col-md-4">
-									<input id="subtituloInput" name="subtituloInput" th:field="*{subTitulo}" type="text" placeholder="Sub Título" class="form-control input-md" />
-									<div class="col-md-4">
-										<div th:if="${#fields.hasErrors('subTitulo')}" th:errors="*{subTitulo}">Sub Título: </div>
+										<div th:if="${#fields.hasErrors('subcabecalho')}" th:errors="*{subcabecalho}">Sub Cabeçalho: </div>
 									</div>
 								</div>    
 							</div>
@@ -147,7 +258,7 @@
 							<div class="form-group">
 								<div class="col-md-12">
 									<center>						
-										<button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Cadastrar Pessoa</button>
+										<button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Imprimir Lista de Crachás</button>
 									</center>
 								</div>
 							</div>

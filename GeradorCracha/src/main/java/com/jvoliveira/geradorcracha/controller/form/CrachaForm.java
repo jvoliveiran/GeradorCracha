@@ -6,6 +6,8 @@ package com.jvoliveira.geradorcracha.controller.form;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.jvoliveira.geradorcracha.domain.Pessoa;
+
 /**
  * @author João Victor
  *
@@ -14,7 +16,7 @@ public class CrachaForm {
 
 	private String cabecalho;
 	
-	private String subCabecalho;
+	private String subcabecalho;
 	
 	@NotNull
     @Size(min=3, max=30)
@@ -23,9 +25,30 @@ public class CrachaForm {
 	@NotNull
 	private String titulo;
 	
-	private String subTitulo;
+	private String subtitulo;
 	
 	private boolean equipista;
+	
+	public CrachaForm(){
+		
+	}
+	
+	public CrachaForm(Pessoa pessoa){
+		this.nome = pessoa.getNome();
+		this.titulo = pessoa.getTitulo();
+		this.subtitulo = pessoa.getSubtitulo();
+		this.equipista = pessoa.isEquipista();
+	}
+	
+	public CrachaForm(CabecalhoCrachaForm cabecalho, Pessoa pessoa){
+		this.cabecalho = cabecalho.getCabecalho();
+		this.subcabecalho = cabecalho.getSubcabecalho(); 
+		
+		this.nome = pessoa.getNome();
+		this.titulo = pessoa.getTitulo();
+		this.subtitulo = pessoa.getSubtitulo();
+		this.equipista = pessoa.isEquipista();
+	}
 	
 	public String getCabecalho() {
 		return cabecalho;
@@ -33,11 +56,11 @@ public class CrachaForm {
 	public void setCabecalho(String cabecalho) {
 		this.cabecalho = cabecalho;
 	}
-	public String getSubCabecalho() {
-		return subCabecalho;
+	public String getSubcabecalho() {
+		return subcabecalho;
 	}
-	public void setSubCabecalho(String subCabecalho) {
-		this.subCabecalho = subCabecalho;
+	public void setSubcabecalho(String subcabecalho) {
+		this.subcabecalho = subcabecalho;
 	}
 	public String getNome() {
 		return nome;
@@ -51,11 +74,11 @@ public class CrachaForm {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public String getSubTitulo() {
-		return subTitulo;
+	public String getSubtitulo() {
+		return subtitulo;
 	}
-	public void setSubTitulo(String subTitulo) {
-		this.subTitulo = subTitulo;
+	public void setSubtitulo(String subtitulo) {
+		this.subtitulo = subtitulo;
 	}
 	public boolean isEquipista() {
 		return equipista;

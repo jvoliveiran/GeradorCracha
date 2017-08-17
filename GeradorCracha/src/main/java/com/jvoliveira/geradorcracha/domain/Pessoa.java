@@ -32,7 +32,7 @@ public class Pessoa {
 	private String titulo;
 	
 	@Column(name="sub_titulo")
-	private String subTitulo;
+	private String subtitulo;
 	
 	@Column(name="ativo")
 	private boolean ativo;
@@ -74,12 +74,12 @@ public class Pessoa {
 		this.titulo = titulo;
 	}
 
-	public String getSubTitulo() {
-		return subTitulo;
+	public String getSubtitulo() {
+		return subtitulo;
 	}
 
-	public void setSubTitulo(String subTitulo) {
-		this.subTitulo = subTitulo;
+	public void setSubtitulo(String subtitulo) {
+		this.subtitulo = subtitulo;
 	}
 
 	public boolean isAtivo() {
